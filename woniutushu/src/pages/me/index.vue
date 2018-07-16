@@ -2,8 +2,8 @@
 <div class="container">
 	<div class="userinfo" v-if="userInfo">
 		<!--用户头像-->
-		<img :src="userInfo.avatarUrl" alt="">
-		<p>{{userInfo.nickName}}</p>
+		<img :src="userInfo.avatarUrl" alt="" class="head-img">
+		<p class="header-name">{{userInfo.nickName}}</p>
 	</div>
 	<button open-type="getUserInfo" bindgetuserinfo="login" @click="login">获取用户信息</button>
 	<button class="btn" @click="scanBook">添加图书</button>
@@ -52,9 +52,10 @@
       scanBook () {
         wx.scanCode({
           success: (res) => {
-            if (res.result) {
-              this.addBook(res.result)
-            }
+            // if (res.result) {
+            //   // this.addBook(res.result)
+            // }
+	          console.log(res)
           },
           fail: (res) => {
             console.log(res)
@@ -68,8 +69,21 @@
 <style lang="scss">
 .container {
 	padding: 0 30px;
-	.userinfo {
-		margin-top: 300rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+.userinfo{
+	margin-top:30rpx;
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
+	img{
+		width: 150rpx;
+		height:150rpx;
+		margin: 20rpx;
+		border-radius: 50%;
 	}
 }
 </style>
