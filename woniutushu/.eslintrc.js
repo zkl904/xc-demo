@@ -28,7 +28,9 @@ module.exports = {
     'no-mixed-spaces-and-tabs': 0,
     'no-tabs': 0,
     'no-trailing-spaces': 0,
-    'indent': 0
+    'indent': 0,
+    'space-before-function-paren': 0,
+    'no-multi-spaces': 0
   },
   globals: {
     App: true,
