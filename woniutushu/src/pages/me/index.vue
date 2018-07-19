@@ -5,7 +5,7 @@
 		<img :src="userInfo.avatarUrl" alt="" class="head-img">
 		<p class="header-name">{{userInfo.nickName}}</p>
 	</div>
-	<button open-type="getUserInfo" bindgetuserinfo="login" @click="login">获取用户信息11</button>
+	<button open-type="getUserInfo" bindgetuserinfo="login" @click="login">获取用户信息</button>
 	<button class="user-btn" @click="scanBook">添加图书</button>
 </div>
 </template>
@@ -32,23 +32,24 @@
       ...mapActions(['getUserInfo']),
       async login () {
         // const res = await get('/weapp/demo')
-        // let res = await this.getUserInfo({
-        //   mobileNo: '15757855221'
-        // })
-       //  console.log(123, res)
-        // 设置登录地址
-        axios({
-          method: 'post',
-          url: 'http://localhost:5757/weapp/demo',
-          data: {
-            mobileNo: 'Fred'
-          },
-          responseType: 'blob'
-        }).then(response => {
-          console.log(1111)
-        }).catch((error) => {
-
+        let res = await this.getUserInfo({
+          mobileNo: '15757855221'
         })
+	      console.log(222222)
+        console.log(123, res)
+        // 设置登录地址
+        // axios({
+        //   method: 'post',
+        //   url: 'http://localhost:5757/weapp/demo',
+        //   data: {
+        //     mobileNo: 'Fred'
+        //   },
+        //   responseType: 'blob'
+        // }).then(response => {
+        //   console.log(1111)
+        // }).catch((error) => {
+        //
+        // })
         let user = wx.getStorageSync('userInfo')
 	      console.log(user)
         if (!user) {

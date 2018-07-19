@@ -1,4 +1,6 @@
 import axios from './axios'
+// 工具函数库
+import config from '@/config'
 
 const state = {
   requestList: {}
@@ -22,7 +24,7 @@ const actions = {
     let data = payload.data || {}
     let showIndicator = payload.showIndicator || true   // 是否转圈
     // merge common request params from rootState.
-    Object.assign(data, rootState.reqParams, {custNo: rootState.custNo ? rootState.custNo : (window.cookieStore.read('custNo') || '')})
+   // Object.assign(data, rootState.reqParams, {custNo: rootState.custNo ? rootState.custNo : (window.cookieStore.read('custNo') || '')})
     let headers = payload.headers || {}
     return new Promise(async (resolve, reject) => {
       // if (showIndicator) Indicator.open()
@@ -49,16 +51,30 @@ const actions = {
       case 'patch':
       case 'delete':
       case 'post':
+        console.log('post')
         return new Promise((resolve, reject) => {
-          axios({
-            method: payload.type,
-            url: payload.url,
+          // axios({
+          //   method: payload.type,
+          //   url: payload.url,
+          //   data: payload.data,
+          //   headers: payload.headers
+          // }).then((res) => {
+          //   resolve(res)
+          // }).catch((err) => {
+          //   reject(err)
+          // })
+          wx.request({
+            url: config.host + payload.url,
             data: payload.data,
-            headers: payload.headers
-          }).then((res) => {
-            resolve(res)
-          }).catch((err) => {
-            reject(err)
+            method: payload.type,
+            headers: payload.headers,
+            success: function (res) {
+              if (res.data.code === 0) {
+                resolve(res.data.data)
+              } else {
+                reject(res.data)
+              }
+            }
           })
         })
         break
